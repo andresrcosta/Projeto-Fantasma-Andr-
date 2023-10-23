@@ -356,7 +356,7 @@ for (marca in marcas) {
   }
 }
 
-# Boxplot do preço mensal por cord do produto da marca #
+# Boxplot do preço mensal por cor do produto da marca #
 
 # Listando as cores
 
@@ -372,7 +372,7 @@ criar_dataframes_cores <- function(data, marca) {
   }
 }
 
-# Aplicar a função para cada marca
+# Aplicando a função para cada marca
 criar_dataframes_cores(vendas_adidas, "adidas")
 criar_dataframes_cores(vendas_hm, "hm")
 criar_dataframes_cores(vendas_gucci, "gucci")
@@ -413,7 +413,7 @@ for (marca in marcas) {
 nomes_bancos <- c("vendas_adidas", "vendas_hm", "vendas_gucci", "vendas_zara", "vendas_nike")
 bancos_de_dados <- list(vendas_adidas, vendas_hm, vendas_gucci, vendas_zara, vendas_nike)
 
-# Criando uma lista de fórmulas que você deseja testar
+# Criando uma lista de fórmulas do teste
 formulas <- list(
   Preço ~ Cor,
   Preço ~ Tamanho,
@@ -424,7 +424,7 @@ formulas <- list(
 # Criando uma matriz para armazenar os p-values
 p_values_matrix <- matrix(NA, nrow = length(nomes_bancos), ncol = length(formulas))
 
-# Realizando os testes de Levene e armazene os p-values
+# Realizando os testes de Levene e armazenando os p-values
 for (i in 1:length(nomes_bancos)) {
   for (j in 1:length(formulas)) {
     levene_result <- leveneTest(formulas[[j]], data = bancos_de_dados[[i]])
@@ -433,11 +433,11 @@ for (i in 1:length(nomes_bancos)) {
 }
 
 # Criando uma tabela com os nomes dos bancos de dados, as variáveis e os p-values
-colnames(p_values_matrix) <- sapply(formulas, deparse)
-rownames(p_values_matrix) <- nomes_bancos
+colnames(matriz_p_valor) <- sapply(formulas, deparse)
+rownames(matriz_p_valor) <- nomes_bancos
 
 # Convertendo a matriz em um data frame
-tabela_p_values <- as.data.frame(p_values_matrix)
+tabela_p_values <- as.data.frame(matriz_p_valor)
 
 # Exibindo a tabela
-print(tabela_p_values)
+print(tabela_p_valores)

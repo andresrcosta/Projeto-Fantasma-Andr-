@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ghost_ai.png" alt="GHOST PROJECT BARBIE" width="150">
+  <img src="ghost_ai.jpeg" alt="GHOST PROJECT BARBIE" width="150">
 </p>
 <h1 align="center"><strong>MAGALI</strong></h1>
 

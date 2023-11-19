@@ -5,11 +5,6 @@
 # Carregando os Pacotes #
 
 library(tidyverse)
-library(xtable)
-library(broom)
-library(nortest)
-library(car)
-library(reshape2)
 
 # Defindo o Diretório
 
@@ -99,11 +94,6 @@ vendas_secundario$Preço <- as.numeric(vendas_secundario$Preço)
 vendas_sem_devolucao <- vendas_secundario[is.na(vendas_secundario$`Motivo de devolução`), ]
 vendas_sem_devolucao <- vendas_sem_devolucao[, !(names(vendas_sem_devolucao) %in% c("Índice Y", "Motivo de devolução"))]
 
-#Criando um dataset sem devolução
-
-vendas_devolvidas <- vendas_secundario[!is.na(vendas_secundario$`Motivo de devolução`), ]
-
 # Dataset completo formatado
 
 vendas_final <- vendas_secundario[, !(names(vendas_secundario) %in% c("X"))]
-

@@ -36,7 +36,7 @@ novo_nome_colunas <- c(
   "Brand" = "Marca",
   "Category" = "Categoria",
   "Price" = "Preço",
-  "Rating" = "Classificação",
+  "Rating" = "Avaliação",
   "Color" = "Cor",
   "Size" = "Tamanho",
   "Unique.ID" = "ID exclusivo",

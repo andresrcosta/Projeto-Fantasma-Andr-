@@ -14,7 +14,7 @@ O presente projeto faz parte de um Processo Seletivo da Empresa Júnior de Estat
 
 ## Motivation
 
-Desenvolver praticamente os conteúdos abordados de forma teórica nas disciplinas da universidade.
+Desenvolver praticamente os conteúdos abordados de forma teórica nas disciplinas da Universidade.
 
 ## Technological Framework
 

@@ -10,7 +10,7 @@ Concluídos às 23h24 do dia 23/11/2023
 
 ## Description
 
-O presente projeto faz parte de um Processo seletivo da empresa júnior de estatística (ESTAT) da Universdade de Brasília. Consiste na elaboração de análises de dados de um banco fictício de uma loja de roupas. O projeto consisete na elaboração de um relatório e códigos em R.
+O presente projeto faz parte de um Processo Seletivo da Empresa Júnior de Estatística (ESTAT) da Universdade de Brasília. Consiste na análises de dados de um banco fictício de uma loja de roupas. O projeto consiste na elaboração de um relatório e códigos em R.
 
 ## Motivation
 

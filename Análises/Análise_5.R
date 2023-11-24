@@ -32,9 +32,25 @@ print(nomes_motivos_5)
 # Tabela de frequência
 
 tabela_freqequencia_5 <- table(vendas_analise_5$Marca, vendas_analise_5$`Motivo de devolução 2`)
+
 tabela_freq_com_margens_5 <- addmargins(tabela_freqequencia_5, FUN = list(Total = sum))
 
 # Visualizar a tabela de frequências com margens
+
 print(tabela_freq_com_margens_5)
 
 xtable :: xtable(tabela_freq_com_margens_5)
+
+# Criando uma tabela de proporções
+
+PT = prop.table(tabela_freqequencia_5, margin=1)
+
+round(PT, 3)
+
+xtable :: xtable(tabela_freqequencia_5)
+
+# Teste qui-quadrado
+
+resultado_chisq <- chisq.test(tabela_freqequencia_5)
+
+print(resultado_chisq)

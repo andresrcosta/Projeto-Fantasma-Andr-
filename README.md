@@ -19,6 +19,8 @@ Software RSTUDIO 4.3.2
 
 ## Summary of Analyses
 
+The PDF report (written in portuguese) included in this repository, containing the following analyses:
+
 1. **Annual revenue by category**  
    1.1 Annual revenue between categories  
    1.2 Impact of returns on revenue by category  

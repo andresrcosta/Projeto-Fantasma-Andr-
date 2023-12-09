@@ -7,11 +7,11 @@
 
 ## Descrição
 
-Este repositório documenta minha participação no processo seletivo do 2º semestre de 2023 para a empresa júnior ESTAT. O processo consistiu em semanas de atividades nas diretorias de Marketing, Comercial, Projetos e Gestão, juntamente com a conclusão de um Projeto Fantasma. O Projeto Fantasma envolveu a elaboração de um relatório das análises de um banco fictício de uma loja de roupas da "Barbie". Este banco de dados contêm informações sobre os produtos vendidos, incluindo marcas, tamanhos, preços, categorias e motivos de devolução
+Este repositório documenta minha participação no processo seletivo do 2º semestre de 2023 para a empresa júnior ESTAT. O processo consistiu em semanas de atividades nas diretorias de Marketing, Comercial, Projetos e Gestão, juntamente com a conclusão de um Projeto Fantasma. O Projeto Fantasma envolveu a elaboração de um relatório das análises de um banco fictício de uma loja de roupas da "Barbie". Este banco de dados contêm informações sobre os produtos vendidos, incluindo marcas, tamanhos, preços, categorias e motivos de devolução.
 
 ## Motivação
 
-O objetivo principal era aplicar as técnicas estatísticas adquiridas nas disciplinas do Bacharelado em Estatística na Universidade de Brasília, buscando também traduzir essas análises estatísticas para um formato compreensível para pessoas não familiarizadas com os conceitos.
+O objetivo principal foi aplicar as técnicas estatísticas abordadas nas disciplinas do Bacharelado em Estatística na Universidade de Brasília, buscando também traduzir essas análises estatísticas para um formato compreensível para pessoas não familiarizadas com os conceitos.
 
 ## Requisitos de Sistema
 

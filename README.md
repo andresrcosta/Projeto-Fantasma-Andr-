@@ -1,7 +1,7 @@
 <p align="center">
   <img src="ghost_ai.jpeg" alt="GHOST PROJECT BARBIE" width="150">
 </p>
-<h1 align="center"><strong>GHOST PROJECT BARBIE</strong></h1>
+<h1 align="center"><strong>PROJETO FANTASMA - ANDRÉ (PS 2.2023 - ESTAT UNB)</strong></h1>
 
 # Análise para o shopping da Barbie
 

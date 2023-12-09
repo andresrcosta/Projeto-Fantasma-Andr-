@@ -8,13 +8,13 @@ library(tidyverse)
 
 # Defindo o Diretório
 
-setwd("")
+setwd("C:\\Users\\andre\\OneDrive\\0 - EST PROGRAMAÇÃO\\0.0 - ESTAT\\PS\\A - SEGUNDA CHANCE")
 
 # Importando os arquivos
 
 vendas <- read.csv("vendas.csv", encoding = "UTF-8")
 vendas_secundario <- vendas
-devolução <- read.csv("devolução.csv" , encoding = "UTF-8")
+devolução <- read.csv("devolução_atualizado.csv" , encoding = "UTF-8")
 devolucao_secundario <- devolução
 
 # Confirmando que todas as compras são de 2022
@@ -26,7 +26,7 @@ vendas_secundario <- vendas_secundario %>%
 
 # Formatando as as colunas
 
-novo_nome_colunas <- c(
+novo_nome_colunas_1 <- c(
   "X" = "X",
   "...1.x" = "Índice X",
   "Data.Venda" = "Data da venda",
@@ -44,7 +44,7 @@ novo_nome_colunas <- c(
   "Motivo.devolução" = "Motivo de devolução"
 )
 
-colnames(vendas_secundario) <- novo_nome_colunas
+colnames(vendas_secundario) <- novo_nome_colunas_1
 
 
 # Formatando as datas das vendas
@@ -92,8 +92,29 @@ vendas_secundario$Preço <- as.numeric(vendas_secundario$Preço)
 # Criando um dataset sem devolução
 
 vendas_sem_devolucao <- vendas_secundario[is.na(vendas_secundario$`Motivo de devolução`), ]
+
 vendas_sem_devolucao <- vendas_sem_devolucao[, !(names(vendas_sem_devolucao) %in% c("Índice Y", "Motivo de devolução"))]
+
+# Incluindo o novo arquivo de devoluluções enviado pela cliente
+# A cliente enviou um email de errata informando que as devoluções do primeiro
+# banco estavam incorretas
+
+# Formatando o banco de devolução
+
+novo_nome_colunas_2 <- c(
+  "X" = "X",
+  "Unique.ID" = "ID exclusivo",
+  "Motivo.devolução" = "Motivo de devolução 2"
+)
+
+colnames(devolucao_secundario) <- novo_nome_colunas_2
+
+# Juntando os bancos (com e sem devolução - após a correção da cliente)
+
+# Unindo os dataframes com base na coluna "ID Exclusivo"
+
+vendas_final_teste <- left_join(vendas_secundario, devolucao_secundario, by = "ID exclusivo")
 
 # Dataset completo formatado
 
-vendas_final <- vendas_secundario[, !(names(vendas_secundario) %in% c("X"))]
+vendas_final <- vendas_final_teste

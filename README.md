@@ -30,18 +30,16 @@ O relatório PDF incluso neste repositório contém as seguintes análises:
 
 2. **Variação do preço por marca**  
    2.1 Variação do preço entre as marcas  
+   2.1 Variação do preço na marca Adidas  
+   2.2 Variação do preço na marca Gucci  
+   2.3 Variação do preço na marca H&M  
+   2.4 Variação do preço na marca Nike  
+   2.5 Variação do preço na marca Zara  
 
-3. **Variação do preço por marca**  
-   3.1 Variação do preço na marca Adidas  
-   3.2 Variação do preço na marca Gucci  
-   3.3 Variação do preço na marca H&M  
-   3.4 Variação do preço na marca Nike  
-   3.5 Variação do preço na marca Zara  
+3. **Relação entre categorias (apenas masculino e feminino) e cor**  
 
-4. **Relação entre categorias (apenas masculino e feminino) e cor**  
+4. **Relação entre preço e avaliação**  
 
-5. **Relação entre preço e avaliação**  
+5. **Frequência de cada tipo de devolução por marca**  
 
-6. **Frequência de cada tipo de devolução por marca**  
-
-7. **Avaliação (rating) média por marca**
+6. **Avaliação (rating) média por marca**

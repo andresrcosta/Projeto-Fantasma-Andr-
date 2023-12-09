@@ -8,7 +8,7 @@ library(tidyverse)
 
 # Defindo o Diretório
 
-setwd("C:\\Users\\andre\\OneDrive\\0 - EST PROGRAMAÇÃO\\0.0 - ESTAT\\PS\\A - SEGUNDA CHANCE")
+setwd("")
 
 # Importando os arquivos
 

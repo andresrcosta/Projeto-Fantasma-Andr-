@@ -2,6 +2,8 @@
 #### Análise 6 - Avaliação média por marca ####
 ###############################################
 
+# Pacotes (olhar o código completo)
+
 # Clonando os datasets
 
 vendas_analise_6 <- vendas_final

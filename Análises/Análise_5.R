@@ -2,6 +2,8 @@
 #### Análise 5 - Frequência de cada tipo de devolução por marca ####
 ####################################################################
 
+# Pacotes (olhar o código completo)
+
 # Clonando os datasets para não corromper o banco original
 
 devolução_analise_5 <- devolução_atualizado_secundário

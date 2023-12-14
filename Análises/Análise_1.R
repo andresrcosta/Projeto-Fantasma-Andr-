@@ -2,17 +2,7 @@
 #### Analise 1 - Faturamento anual por categoria #####
 ######################################################
 
-# Pacotes
-
-if (!requireNamespace("dplyr", quietly = TRUE)) {
-  install.packages("dplyr")
-}
-if (!requireNamespace("purrr", quietly = TRUE)) {
-  install.packages("purrr")
-}
-
-library(dplyr)
-library(purrr)
+# Pacotes (olhar o código completo)
 
 # Está sendo utilizado o datset sem as devoluções, pois os produtos devolvidos
 # não entram no faturamento #

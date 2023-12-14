@@ -2,6 +2,8 @@
 ####Analise 2 - Variação do preço por marca #####
 #################################################
 
+# Pacotes (olhar o código completo)
+
 # Clonando o dataset para não aplicar erros aos dados originais
 # Dataset completo, pois as devoluções não impactam nesta análise
 

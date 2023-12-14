@@ -30,13 +30,23 @@ theme_estat <- function(...) {
 # Carregando os Pacotes #
 #########################
 
-library(tidyverse)
-library(xtable)
-library(broom)
-library(nortest)
-library(car)
-library(reshape2)
-library(vcd)
+# Lista de pacotes a serem verificados e carregados
+
+pacotes <- c("tidyverse", "xtable", "broom", "nortest", "car", "reshape2", "vcd")
+
+# Verificando se os pacotes não estão instalados e instalá-los se necessário
+
+pacotes_instalados <- pacotes[!(pacotes %in% installed.packages())]
+if (length(pacotes_instalados) > 0) {
+  install.packages(pacotes_instalados)
+}
+
+# Carregando os pacotes já instalados
+
+pacotes_carregados <- pacotes[!(pacotes %in% pacotes_instalados)]
+if (length(pacotes_carregados) > 0) {
+  invisible(lapply(pacotes_carregados, library, character.only = TRUE))
+}
 
 # Defindo o Diretório
 
@@ -166,10 +176,10 @@ vendas_final <- vendas_final_teste
 #### Analise 1 - Faturamento anual por categoria #####
 ######################################################
 
-# Clonando o dataset para não aplicar erros aos dados originais
-
 # Está sendo utilizado o datset sem as devoluções, pois os produtos devolvidos
 # não entram no faturamento #
+
+# Clonando o dataset para não aplicar erros aos dados originais
 
 vendas_analise_1 <-vendas_sem_devolucao
 
@@ -315,78 +325,82 @@ print(soma_precos_defeito_por_categoria)
 
 xtable :: xtable(soma_precos_defeito_por_categoria)
 
-# Avaliando cada marca individualmente
+# Análise das marcas, cores e tamanhos inidividualmente
 
 # Retirando NAS
 
-vendas_analise_1_parte_3_1 <- subset(vendas_analise_1, complete.cases(Categoria,Marca))
+vendas_analise_1_marcas_parte_setores <- subset(vendas_analise_1, complete.cases(Categoria,Marca))
 
-# Grafico de setories com todas as marcas
+# Grafico de setores para categoria de marca, cor e tamanho
 
-contagem <- vendas_analise_1_parte_3_1 %>%
-  group_by(Categoria,Marca) %>%
-  summarise (Freq = n()) %>%
-  mutate(Prop = round(100*(Freq/sum(Freq)),2)) %>%
-  arrange(desc(Marca)) %>%
-  mutate(posicao = cumsum(Prop) - 0.5*Prop)
+# Função para criar contagem e gráfico de barras para Marca, Cor ou Tamanho
 
-contagem %>%
-  ggplot (aes(x = factor(""), y = Prop , fill = (Marca))) +
-  geom_bar(width = 1, stat = "identity") +
-  facet_wrap(~ Categoria) +
-  coord_polar("y", start = 0) +
-  geom_text(
-    aes(x = 2, y = posicao , label = paste0(Prop , "%")),
-    color = "black") +
-  theme_void () +
-  theme(legend.position = "top") +
-  scale_fill_manual(values = cores_estat , name = 'Marca')
-ggsave("setor_final_1.pdf", width = 180, height = 93, units = "mm")
+gerar_contagem_grafico <- function(dataset, variavel) {
+  contagem <- dataset %>%
+    group_by(Categoria, !!sym(variavel)) %>%
+    summarise(Freq = n()) %>%
+    mutate(Prop = round(100 * (Freq / sum(Freq)), 2)) %>%
+    arrange(desc(!!sym(variavel))) %>%
+    mutate(posicao = cumsum(Prop) - 0.5 * Prop)
 
-# Gráficos de linhas multivariados individuais para cada marca
-
-# Função para criar os gráficos
-
-gerar_grafico <- function(data, nome_arquivo) {
-  grafico <- ggplot(data) +
-    aes(x = `Mês da compra`, y = Faturamento, group = Marca, color = Marca) +
-    geom_line(size = 1) +
-    geom_point(size = 2) +
-    labs(x = "Mês", y = "Faturamento", color = "Marca") +
-    scale_y_continuous(limits = c(0, max(data$Faturamento) + 100), breaks = seq(0, max(data$Faturamento) + 100, by = 100)) +
-    theme_minimal()
-  
-  ggsave(nome_arquivo, plot = grafico, width = 158, height = 93, units = "mm")
+  ggplot(contagem, aes(x = factor(""), y = Prop, fill = !!sym(variavel))) +
+    geom_bar(width = 1, stat = "identity") +
+    facet_wrap(~ Categoria) +
+    coord_polar("y", start = 0) +
+    geom_text(
+      aes(x = 2, y = posicao, label = paste0(Prop, "%")),
+      color = "black") +
+    theme_estat() +
+    theme(legend.position = "top") +
+    scale_fill_manual(values = cores_estat, name = variavel)
 }
 
-# Gráficos de linhas multivariados para diferentes colunas: marca, cor e tamanho
+# Uso da função para criar contagem e gráfico de barras para Marca, Cor e Tamanho
 
-# Listando das colunas de interesse
+contagem_marca <- gerar_contagem_grafico(vendas_analise_1_marcas_setores, "Marca")
+ggsave("setor_final_marca.pdf", plot = contagem_marca, width = 180, height = 93, units = "mm")
 
-colunas_interesse <- c("Marca", "Cor", "Tamanho")
+contagem_cor <- gerar_contagem_grafico(vendas_analise_1_marcas_setores, "Cor")
+ggsave("setor_final_cor.pdf", plot = contagem_cor, width = 180, height = 93, units = "mm")
 
-for (coluna in colunas_interesse) {
-  # Filtrando dados sem valores ausentes para a coluna atual e Categoria
-  dados_filtrados <- subset(vendas_analise_1, complete.cases(Categoria, {{coluna}}))
-  
-  # Agrupando o faturamento anual por coluna atual e Categoria
-  categorias <- c("Women's Fashion", "Men's Fashion", "Kids' Fashion")
-  
-  for (cat in categorias) {
-    dataset_name <- paste("faturamento_anual_", gsub("'", "", gsub(" ", "_", cat)), "_", gsub("'", "", gsub(" ", "_", coluna)), sep = "")
-    assign(dataset_name, calcular_faturamento(dados_filtrados, cat, coluna))
-  }
-  
-  # Criando lista de dataframes e nomes de arquivos para a coluna atual
-  nomes_arquivos <- paste("faturamento_", gsub("'", "", gsub(" ", "_", coluna)), "_", gsub("'", "", gsub(" ", "_", coluna)), "_final.pdf", sep = "")
-  nomes_arquivos <- rep(nomes_arquivos, length(categorias))
-  dataframes <- mget(grep(paste("^faturamento_anual_", gsub("'", "", gsub(" ", "_", coluna)), "_", sep = ""), ls(), value = TRUE))
-  
-  # Iterando para criar os gráficos para a coluna atual
-  for (i in seq_along(dataframes)) {
-    gerar_grafico(dataframes[[i]], nomes_arquivos[i])
-  }
+contagem_tamanho <- gerar_contagem_grafico(vendas_analise_1_marcas_setores, "Tamanho")
+ggsave("setor_final_tamanho.pdf", plot = contagem_tamanho, width = 180, height = 93, units = "mm")
+
+# Função para criar conjuntos de dados e gráficos com base em uma variável (Marca, Cor ou Tamanho)
+# Ou seja um grafico de linha multivariado para cada categoria em marca, cor e tamanho
+
+gerar_grafico <- function(dataset, variavel) {
+  lista_faturamento_anual <- dataset %>%
+    group_split(Categoria) %>%
+    map(~ .x %>%
+          group_by(`Mês da compra`, !!sym(variavel)) %>%
+          summarise(Faturamento = sum(Preço)))
+
+  nomes_categorias <- unique(dataset$Categoria)
+  nomes_lista <- paste0("faturamento_anual_", gsub("'", "", nomes_categorias), "_", variavel)
+  names(lista_faturamento_anual) <- nomes_lista
+
+  lista_graficos <- map(lista_faturamento_anual, ~ ggplot(.x) +
+                          aes(x = `Mês da compra`, y = Faturamento, group = !!sym(variavel), color = !!sym(variavel)) +
+                          geom_line(size = 1) +
+                          geom_point(size = 2) +
+                          labs(x = "Mês", y = "Faturamento", color = variavel) +
+                          scale_y_continuous(limits = c(0, max(.x$Faturamento) + 100), breaks = seq(0, max(.x$Faturamento) + 100, by = 100)) +
+                          theme_estat())
+
+  nomes_graficos <- names(lista_faturamento_anual)
+  names(lista_graficos) <- paste0("grafico_", nomes_graficos)
+
+  map(names(lista_graficos), ~ ggsave(paste0(.x, "_", variavel, ".pdf"), plot = lista_graficos[[.x]], width = 158, height = 93, units = "mm"))
 }
+
+# Uso da função para criar conjuntos de dados e gráficos para Marca, Cor e Tamanho
+
+vendas_analise_1_marcas_linhas <- subset(vendas_analise_1, complete.cases(Categoria,Cor))
+
+gerar_grafico(vendas_analise_1_marcas_linhas, "Marca")
+gerar_grafico(vendas_analise_1_marcas_linhas, "Cor")
+gerar_grafico(vendas_analise_1_marcas_linhas, "Tamanho")
 
 #################################################
 ####Analise 2 - Variação do preço por marca #####

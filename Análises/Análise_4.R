@@ -2,6 +2,8 @@
 #### Análise 4 - Relação entre preço e avaliação ####
 #####################################################
 
+# Pacotes (olhar o código completo)
+
 # Clonando os datasets
 
 vendas_analise_4 <- vendas_final

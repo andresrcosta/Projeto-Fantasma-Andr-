@@ -2,6 +2,8 @@
 #### Análise 3 - Relação entre categoira (Masculino e feminino) e marca ####
 ############################################################################
 
+# Pacotes (olhar o código completo)
+
 # Clonando os dataset para não corromper o banco original
 
 vendas_analise_3 <- vendas_final

@@ -22,7 +22,7 @@ vendas_analise_2$Preço <- as.numeric(vendas_analise_2$Preço)
 nomes_marcas <- unique(vendas_analise_2$`Marca`)
 print(nomes_marcas)
 
-# Boxplot multivaria do preço por marca
+# Boxplot multivariado do preço por marca
 
 ggplot(vendas_analise_2) +
   aes(x = Marca , y = Preço) +
